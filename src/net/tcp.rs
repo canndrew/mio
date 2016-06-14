@@ -297,3 +297,20 @@ impl FromRawFd for TcpListener {
         TcpListener { sys: FromRawFd::from_raw_fd(fd) }
     }
 }
+
+/*
+ *
+ * ==== WINDOWS ext ====
+ *
+ */
+
+#[cfg(windows)]
+use std::os::windows::io::{AsRawSocket, RawSocket};
+
+#[cfg(windows)]
+impl AsRawSocket for TcpStream {
+    fn as_raw_socket(&self) -> RawSocket {
+        self.sys.as_raw_socket()
+    }
+}
+

@@ -161,6 +161,12 @@ impl TcpStream {
     }
 }
 
+impl AsRawSocket for TcpStream {
+    fn as_raw_socket(&self) -> RawSocket {
+        self.inner().socket.as_raw_socket()
+    }
+}
+
 impl StreamImp {
     fn inner(&self) -> MutexGuard<StreamInner> {
         self.inner.inner.lock().unwrap()
